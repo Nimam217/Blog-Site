@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %} 
+  {% load blog-tags %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popular-Post</title>
+  </head>
+  <body>
+    
+    <div class="single-sidebar-widget popular-post-widget">
+      <h4 class="popular-title">Popular Posts</h4>
+      <div class="popular-post-list">
+		{% for post in posts %}
+        <div class="single-post-list d-flex flex-row align-items-center">
+        
+          <div class="thumb">
+            <img
+              class="img-fluid"
+              src="{{post.image.url}}"
+              alt="{{post.title}}"
+            />
+          </div>
+
+          <div class="details">
+            <a href="{% url 'core:blog-single' post.pk %}"><h6>{{post.title|truncatechars:10}}</h6></a>
+            <p>{{post.published_date|date:"Y/M/d H:m"}}</p>
+          </div>
+		
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

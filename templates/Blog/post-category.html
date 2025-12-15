@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+{% load blog-tags %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category</title>
+  </head>
+  <body>
+    <div class="single-sidebar-widget post-category-widget">
+      <h4 class="category-title">Post Catgories</h4>
+     
+     {% for name,number in categories.items %}
+       <ul class="cat-list">
+        <li>
+          <a href="{% url 'core:blog-category' cat_name=name  %}" class="d-flex justify-content-between">
+            <p>{{name}}</p>
+            <p>{{number}}</p>
+          </a>
+        </li>
+        
+      </ul>
+     {% endfor %}
+      
+    </div>
+  </body>
+</html>
