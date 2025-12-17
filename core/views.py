@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .models import Post
 from datetime import datetime
+from django.core.paginator import Paginator
 # Create your views here.
 
 def index (request):
@@ -22,7 +23,13 @@ def bloghome(request,**kwargs):
         
     if kwargs.get('author_name')!=None:
         posts=posts.filter(author__username=kwargs['author_name'])
-        
+    
+    
+    paginator = Paginator(posts,2 ) 
+
+    page_number = request.GET.get("page")
+    posts = paginator.get_page(page_number)
+    
     return render(request,'Blog/blog-home.html',context={'posts':posts})
 
 
@@ -47,3 +54,8 @@ def search_box(request):
     context={'posts':posts}
     
     return render(request,'Blog/blog-home.html',context)
+
+def paginate(request):
+    posts = Post.objects.all()
+   
+    return render(request, "Blog/blog-home.html", {"page_obj": page_obj})

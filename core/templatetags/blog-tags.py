@@ -20,3 +20,8 @@ def postcategory():
         cat_dict[name]=posts.filter(category=name).count()
     return {'categories':cat_dict}
 
+@register.inclusion_tag('Blog/home-latest-posts.html')
+def homelatest():
+    posts=Post.objects.filter(status=1)
+    posts=posts.order_by("published_date")[:6] 
+    return {'posts':posts}
