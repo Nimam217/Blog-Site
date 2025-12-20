@@ -98,7 +98,7 @@
 									<ul class="tags">
 										
 										{% for cat  in post.category.all %}
-											<li><a href="{% url 'core:blog-category' cat_name=cat.name %}">{{cat.name }}</a></li>{% if not forloop.last %},{% endif %}
+											<li><a href="{% url 'blog:blog-category' cat_name=cat.name %}">{{cat.name }}</a></li>{% if not forloop.last %},{% endif %}
 											
 												
 											
@@ -109,7 +109,7 @@
 									
 									</ul>
 									<div class="user-details row">
-										<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'core:blog-author' author_name=post.author.username %}">{{post.author}}</a> <span class="lnr lnr-user"></span></p>
+										<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'blog:blog-author' author_name=post.author.username %}">{{post.author}}</a> <span class="lnr lnr-user"></span></p>
 										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.published_date|date:'Y/M/d H:m'}}</a> <span class="lnr lnr-calendar-full"></span></p>
 										<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.counted_views}} Views</a> <span class="lnr lnr-eye"></span></p>
 										<p class="comments col-lg-12 col-md-12 col-6"><a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span></p>						
@@ -119,11 +119,11 @@
 									<div class="feature-img">
 										<img class='img-fluid' src="{{post.image.url}}" alt="{{post.image}}">
 									</div>
-									<a class="posts-title" href="{% url 'core:blog-single' post.id %}"><h3>{{post.title|truncatewords:5|truncatechars:30}}</h3></a>
+									<a class="posts-title" href="{% url 'blog:blog-single' post.id %}"><h3>{{post.title|truncatewords:5|truncatechars:30}}</h3></a>
 									<p class="excert">
 										{{post.content|truncatechars:100}}
 									</p>
-									<a href="{% url 'core:blog-single' post.pk %}" class="primary-btn">View More</a>
+									<a href="{% url 'blog:blog-single' post.pk %}" class="primary-btn">View More</a>
 								</div>
 							</div>
 							{% endfor %}

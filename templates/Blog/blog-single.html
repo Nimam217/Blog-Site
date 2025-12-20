@@ -12,7 +12,7 @@
 							<h1 class="text-white">
 								Blog Details Page				
 							</h1>	
-							<p class="text-white link-nav"><a href="{% url 'core:index' %}">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="{% url 'core:blog-home' %}">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="{% url 'core:blog-single' post.pk %}"> Blog Details Page</a></p>
+							<p class="text-white link-nav"><a href="{% url 'core:index' %}">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="{% url 'blog:blog-home' %}">Blog </a> <span class="lnr lnr-arrow-right"></span> <a href="{% url 'blog:blog-single' post.pk %}"> Blog Details Page</a></p>
 						</div>	
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 								<div class="col-lg-3  col-md-3 meta-details">
 									<ul class="tags">
 										{% for cat  in post.category.all %}
-											<li><a href="{% url 'core:blog-category' cat_name=cat.name %}">{{cat.name }}</a></li>{% if not forloop.last %},{% endif %}
+											<li><a href="{% url 'blog:blog-category' cat_name=cat.name %}">{{cat.name }}</a></li>{% if not forloop.last %},{% endif %}
 											
 												
 											

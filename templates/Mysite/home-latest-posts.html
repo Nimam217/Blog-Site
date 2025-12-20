@@ -17,7 +17,7 @@
             </li>
           </ul>
         </div>
-        <a href="{% url 'core:blog-single' post.pk %}"><h4 class="title">{{post.title}}</h4></a>
+        <a href="{% url 'blog:blog-single' post.pk %}"><h4 class="title">{{post.title}}</h4></a>
         <p>{{post.content|truncatechars:50}}</p>
         <h6 class="date">{{post.published_date|date:'j  F,Y' }}</h6>
       </div>

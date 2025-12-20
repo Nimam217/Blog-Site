@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post,Category
+from .models import Post,Category,Contact
 # Register your models here.
 
 @admin.register(Post)
@@ -16,3 +16,14 @@ class PostAdmin(admin.ModelAdmin):
     list_filter=['status']
 
 admin.site.register(Category)
+
+
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    date_hierarchy = 'created_date'
+    list_display = ('name','email','created_date')
+    list_filter = ('email',)
+    search_fields = ('name','message')
+    ordering=['created_date']
