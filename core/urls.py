@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index,contact,elements,about
+from .views import index,contact,elements,about,newsletter
 app_name='core'
 urlpatterns = [
     path('',index,name='index'),
@@ -9,6 +9,8 @@ urlpatterns = [
     path('elements/',elements,name='elements'),
 
     path('about/',about,name='about'),
+    
+    path('newsletter/',newsletter,name='newsletter')
     
    
 
