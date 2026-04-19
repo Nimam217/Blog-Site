@@ -181,3 +181,7 @@ cython_debug/
 .cursorindexingignore
 /media
 /staticfiles
+
+#cspell
+.cspell/
+cspell.json

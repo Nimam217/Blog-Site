@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post,Category,Contact,NewsLetter
+from .models import Post,Category,NewsLetter
 # Register your models here.
 
 @admin.register(Post)
@@ -20,10 +20,3 @@ admin.site.register(Category)
 admin.site.register(NewsLetter)
 
 
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    date_hierarchy = 'created_date'
-    list_display = ('name','email','created_date')
-    list_filter = ('email',)
-    search_fields = ('name','message')
-    ordering=['created_date']

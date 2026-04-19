@@ -44,16 +44,6 @@ class Post(models.Model):
                 self.published_date = timezone.now()
         super().save(*args, **kwargs)
 
-class Contact(models.Model):
-    name=models.CharField()
-    email=models.EmailField()
-    subject=models.CharField(blank=True)
-    message=models.TextField()
-    created_date=models.DateTimeField(auto_now_add=True)
-    upadate_date=models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return self.name
     
     
 class NewsLetter(models.Model):
