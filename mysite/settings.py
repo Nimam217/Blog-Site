@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'blog.apps.BlogConfig',
     'contact.apps.ContactConfig',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'robots'
     
 ]
 
@@ -133,5 +136,14 @@ MEDIA_ROOT= BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # messages
+
 from django.contrib.messages import constants as messages
 
+# sites framework
+
+SITE_ID = 2
+
+#robots
+
+ROBOTS_USE_HOST = False
+ROBOTS_USE_SITEMAP = False

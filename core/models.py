@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 # Create your models here.
+from django.urls import reverse
 
 class Category(models.Model):
     name=models.CharField(max_length=10)
@@ -44,6 +45,9 @@ class Post(models.Model):
                 self.published_date = timezone.now()
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("blog:blog-single", kwargs={"pk": self.pk})
+    
     
     
 class NewsLetter(models.Model):

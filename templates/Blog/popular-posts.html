@@ -2,6 +2,7 @@
 <html lang="en">
   {% load static %} 
   {% load blog-tags %}
+  {% load humanize %} 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +26,7 @@
 
           <div class="details">
             <a href="{% url 'blog:blog-single' post.pk %}"><h6>{{post.title|truncatechars:10}}</h6></a>
-            <p>{{post.published_date|date:"Y/M/d H:m"}}</p>
+            <p>{{post.published_date|naturaltime}}</p>
           </div>
 		
         </div>
