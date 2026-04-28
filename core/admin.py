@@ -6,7 +6,7 @@ from .models import Post,Category,NewsLetter
 class PostAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     date_hierarchy = 'created_date'
-    fields=['title','author','status','content','category','counted_views']
+    fields=['title','author','status','content','category','counted_views','tags']
     list_display=[
         'title','author','created_date','published_date',
         'update_date','status','counted_views','image'

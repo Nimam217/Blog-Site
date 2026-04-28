@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.sitemaps',
-    'robots'
+    'robots',
+    'debug_toolbar',
+    'taggit'
     
 ]
 
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -140,10 +143,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 from django.contrib.messages import constants as messages
 
 # sites framework
-
+'''
 SITE_ID = 2
 
 #robots
 
 ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
+
+#debug_toolbar
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]'''

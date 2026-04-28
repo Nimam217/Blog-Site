@@ -8,8 +8,8 @@ urlpatterns = [
     
     path('blog-single/<int:pk>',blogsingle,name='blog-single'),
     
-     path('category/<str:cat_name>',bloghome,name='blog-category'),
-    
+    path('category/<str:cat_name>',bloghome,name='blog-category'),
+    path('tag/<str:tag_name>',bloghome,name='blog-tag'),
     path('author/<str:author_name>',bloghome,name='blog-author'),
     
     path('search/',search_box,name='blog-search')

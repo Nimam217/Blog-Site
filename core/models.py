@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
-# Create your models here.
 from django.urls import reverse
+from taggit.managers import TaggableManager
+# Create your models here.
+
 
 class Category(models.Model):
     name=models.CharField(max_length=10)
@@ -19,7 +21,7 @@ class Post(models.Model):
     created_date=models.DateTimeField(auto_now_add=True)
     update_date=models.DateTimeField(auto_now=True)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
-    #tag
+    tags=TaggableManager()
     category=models.ManyToManyField(Category)
     #comments
     content=models.TextField(null=True)
