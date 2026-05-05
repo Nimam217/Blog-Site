@@ -1,6 +1,9 @@
 from django.shortcuts import render,get_object_or_404
 from core.models import Post
+from .models import Comment
 from django.core.paginator import Paginator
+from .forms import CommentForm
+from django.contrib import messages
 # Create your views here.
 
 
@@ -24,9 +27,21 @@ def bloghome(request,**kwargs):
     return render(request,'Blog/blog-home.html',context={'posts':posts})
 
 def blogsingle(request,pk):
+    if request.method == "POST":
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'you sent a contact form.')
+               
+        else:
+            messages.error(request,"the contact form didn't send.")
+                
+    
     posts=Post.objects.filter(status=1)
     post=get_object_or_404(posts,pk=pk)
-    return render(request,'Blog/blog-single.html',context={'post':post})
+    comments=Comment.objects.filter(post=post.pk,approved=True)
+    form=CommentForm()
+    return render(request,'Blog/blog-single.html',context={'post':post ,'comments':comments,'form':form})
 
 
 def search_box(request):

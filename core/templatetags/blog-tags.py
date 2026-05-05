@@ -1,7 +1,14 @@
 from django import template
 from core.models import Post,Category
+from blog.models import Comment
 
 register = template.Library()
+
+@register.simple_tag(name='count_comments')
+def functions(pid):
+    
+    return Comment.objects.filter(post=pid,approved=True).count()
+
 
 
 @register.inclusion_tag('Blog/popular-posts.html')

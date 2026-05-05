@@ -23,7 +23,6 @@ class Post(models.Model):
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     tags=TaggableManager()
     category=models.ManyToManyField(Category)
-    #comments
     content=models.TextField(null=True)
     status=models.BooleanField(default=False)
     counted_views=models.IntegerField(default=0)

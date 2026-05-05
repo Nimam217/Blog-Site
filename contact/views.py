@@ -16,4 +16,4 @@ def contact(request):
     else:
         
         form=ContactForm()
-    return render(request,'Contact/contact.html')
+    return render(request,'Contact/contact.html',{'form':form})
