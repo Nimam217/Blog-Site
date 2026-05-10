@@ -9,12 +9,13 @@
       <div class="details">
         <div class="tags">
           <ul>
-            <li>
-              <a href="#">Travel</a>
-            </li>
-            <li>
-              <a href="#">Life Style</a>
-            </li>
+            {% for cat  in post.category.all %}
+              <li><a href="{% url 'blog:blog-category' cat_name=cat.name %}">{{cat.name }}</a></li>
+                        
+                          
+                        
+                          
+            {% endfor %}
           </ul>
         </div>
         <a href="{% url 'blog:blog-single' post.pk %}"><h4 class="title">{{post.title}}</h4></a>

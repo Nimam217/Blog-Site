@@ -27,10 +27,12 @@ sitemaps = {
     "static": StaticViewSitemap,
     "blog" : BlogSitemap
 }
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('core.urls',namespace='core')),
     path('blog/',include('blog.urls',namespace='blog')),
+    path('accounts/',include('accounts.urls',namespace='accounts')),
     path('contact/',include('contact.urls',namespace='contact')),
     #path('summernote/', include('django_summernote.urls')),
     path("sitemap.xml",sitemap,{"sitemaps": sitemaps},name="django.contrib.sitemaps.views.sitemap"),
