@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,PasswordChangeForm
+from django.contrib.auth import authenticate,login,logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
+
+
 # Create your views here.
 def login_view(request):
     if not request.user.is_authenticated:
@@ -16,7 +18,7 @@ def login_view(request):
                 if user is not None:
                     login(request,user)
                     messages.success(request,'successfully logged in')
-                    return redirect('/')
+                    
                 
         form=AuthenticationForm()
         context={'form':form}
@@ -33,5 +35,33 @@ def logout_view(request):
     return redirect('/')
 
 def signup_view(request):
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            form=UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request,'successfully signed up')
+                return redirect(reverse('accounts:login'))
+            else:
+                messages.error(request,'somethings went wrong')
+                
+        form=UserCreationForm()
+        context={'form':form}       
+        return render(request,'accounts/signup.html',context)
+   
+    else:
+        return redirect('/')
     
-    return render(request,'accounts/signup.html')
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form=PasswordChangeForm(data=request.POST,user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request,'password successfully changed')
+            
+        else:
+            messages.error(request,'somethings went wrong')
+    form=PasswordChangeForm(user=request.user)
+    return render(request,'accounts/change_password.html',context={'form':form})

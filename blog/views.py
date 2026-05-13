@@ -1,4 +1,5 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import redirect, render,get_object_or_404
+from django.urls import reverse
 from core.models import Post # pyright: ignore[reportMissingImports]
 from .models import Comment
 from django.core.paginator import Paginator
@@ -36,15 +37,31 @@ def blogsingle(request,pk):
         else:
             messages.error(request,"the comment didn't send.")
                 
-    
+   
     posts=Post.objects.filter(status=1)
     post=get_object_or_404(posts,pk=pk)
-    prv_post= Post.objects.filter(created_date__lt=post.created_date,status=1).order_by("-created_date").first()
-    nxt_post= Post.objects.filter(created_date__gt=post.created_date,status=1).order_by("created_date").first()
-    comments=Comment.objects.filter(post=post.pk,approved=True)
-    form=CommentForm()
-    context={'post':post ,'comments':comments,'form':form,'prv_post':prv_post,'nxt_post':nxt_post}
-    return render(request,'Blog/blog-single.html',context=context)
+    if not post.login_require:
+        
+        prv_post= Post.objects.filter(created_date__lt=post.created_date,status=1).order_by("-created_date").first()
+        nxt_post= Post.objects.filter(created_date__gt=post.created_date,status=1).order_by("created_date").first()
+        comments=Comment.objects.filter(post=post.pk,approved=True)
+        form=CommentForm()
+        context={'post':post ,'comments':comments,'form':form,'prv_post':prv_post,'nxt_post':nxt_post}
+        return render(request,'Blog/blog-single.html',context=context)
+    
+    elif request.user.is_authenticated:
+        post=get_object_or_404(posts,pk=pk)
+         
+        prv_post= Post.objects.filter(created_date__lt=post.created_date,status=1).order_by("-created_date").first()
+        nxt_post= Post.objects.filter(created_date__gt=post.created_date,status=1).order_by("created_date").first()
+        comments=Comment.objects.filter(post=post.pk,approved=True)
+        form=CommentForm()
+        context={'post':post ,'comments':comments,'form':form,'prv_post':prv_post,'nxt_post':nxt_post}
+        return render(request,'Blog/blog-single.html',context=context)
+    
+    
+    else:
+        return redirect(reverse('accounts:login'))
 
 
 def search_box(request):

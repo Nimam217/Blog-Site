@@ -26,6 +26,7 @@ class Post(models.Model):
     content=models.TextField(null=True)
     status=models.BooleanField(default=False)
     counted_views=models.IntegerField(default=0)
+    login_require=models.BooleanField(default=False)
     
     
     
