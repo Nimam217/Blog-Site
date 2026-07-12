@@ -4,7 +4,7 @@
     <div class="single-recent-blog-post item">
       
       <div class="thumb">
-        <img class="img-fluid" src="{{post.image.url}}" alt="{{post.image}}" />
+        <img style="max-height: 200px" class="img-fluid"  src="{{post.image.url}}" alt="{{post.image}}" />
       </div>
       <div class="details">
         <div class="tags">
@@ -19,7 +19,7 @@
           </ul>
         </div>
         <a href="{% url 'blog:blog-single' post.pk %}"><h4 class="title">{{post.title}}</h4></a>
-        <p>{{post.content|truncatechars:50}}</p>
+        <p>{{post.content|truncatechars:50|safe}}</p>
         <h6 class="date">{{post.published_date|date:'j  F,Y' }}</h6>
       </div>
 

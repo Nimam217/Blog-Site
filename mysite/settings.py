@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,12 +19,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mcle6(cfyk+-m@8lz*$)v#@k14urni4@e^a#qu!4&ly7sgc4xm'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', '0') == '1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -87,12 +87,21 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Source - https://stackoverflow.com/a/5421511
+# Posted by Alireza Savand, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-07-02, License - CC BY-SA 3.0
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("POSTGRES_DB"),
+        'USER': os.environ.get("POSTGRES_USER"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
@@ -148,7 +157,7 @@ from django.contrib.messages import constants as messages
 
 # sites framework
 
-SITE_ID = 2
+SITE_ID = 3
 
 #robots
 
@@ -160,28 +169,24 @@ ROBOTS_USE_SITEMAP = False
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
-'''
+
 #summernote
+SUMMERNOTE_THEME = 'bs5'  # Show summernote with Bootstrap5
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SUMMERNOTE = "bs5"
 
 
 SUMMERNOTE_CONFIG = {
-    # Using SummernoteWidget - iframe mode, default
     'iframe': True,
 
-   
-    # You can put custom Summernote settings
     'summernote': {
-        # As an example, using Summernote Air-mode
         'airMode': False,
-
-        # Change editor size
-        'width': '100%',
+        'width': '300%',
         'height': '480',
 
-        # Toolbar customization
-        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        # زبان خودکار مرورگر
+        'lang': None,
+
         'toolbar': [
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
@@ -193,10 +198,44 @@ SUMMERNOTE_CONFIG = {
             ['view', ['fullscreen', 'codeview', 'help']],
         ],
 
+        'print': {
+            'stylesheetUrl': '/static/css/printable.css',
+        },
 
+        'codemirror': {
+            'mode': 'htmlmixed',
+            'lineNumbers': True,
+            'theme': 'monokai',
+        },
     },
+
+    # پیوست‌ها
+    'attachment_require_authentication': True,
+    'disable_attachment': False,
+    'attachment_absolute_uri': True,
+
+    # در صورت نیاز
+    # 'attachment_upload_to': my_custom_upload_to_func,
+    # 'attachment_storage_class': 'my.custom.storage.class.name',
+    # 'attachment_model': 'my.custom.attachment.model',
+
+    # فایل‌های اضافی
+    'css': (
+        '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/theme/monokai.min.css',
+    ),
+
+    'js': (
+        '/static/js/summernote-ext-print.js',
+    ),
+
+    # برای inplace widget
+    'css_for_inplace': (),
+    'js_for_inplace': (),
+
+    # مقداردهی تنبل
+    'lazy': True,
 }
-'''
+
 # admin captcha
 MULTI_CAPTCHA_ADMIN = {
     'engine': 'simple-captcha',

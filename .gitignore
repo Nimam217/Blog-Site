@@ -185,3 +185,11 @@ cython_debug/
 #cspell
 .cspell/
 cspell.json
+
+#vs code
+.vscode/
+.idea
+
+#env
+.env.prod
+.env
